@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        #joke { font-size: 24px; margin-bottom: 20px; }
+        button { padding: 10px 20px; font-size: 16px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Random Joke Generator</h1>
+    <div id="joke">Click the button to get a joke!</div>
+    <button id="getJoke">Get Joke</button>
+    <button id="copyJoke">Copy Joke</button>
+
+    <script>
+        const jokeElement = document.getElementById('joke');
+        const getJokeButton = document.getElementById('getJoke');
+        const copyJokeButton = document.getElementById('copyJoke');
+
+        getJokeButton.addEventListener('click', async () => {
+            const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+            const joke = await response.json();
+            jokeElement.innerText = `${joke.setup} \n${joke.punchline}`;
+        });
+
+        copyJokeButton.addEventListener('click', () => {
+            navigator.clipboard.writeText(jokeElement.innerText);
+            alert('Joke copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
